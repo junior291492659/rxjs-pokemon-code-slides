@@ -2,144 +2,206 @@ import {
   CodeSurfer,
   CodeSurferColumns,
   Step,
-} from "code-surfer";
-import { github, vsDark } from "@code-surfer/themes";
+} from 'code-surfer';
+import {
+  github,
+  vsDark,
+  nightOwl,
+} from '@code-surfer/themes';
+import { Image } from 'mdx-deck';
+import MyCounter from './src/Counter.jsx';
+import Pokemon1 from './src/components/Pokemon1.jsx'
+import Pokemon2 from './src/components/Pokemon2.jsx'
+import Pokemon3 from './src/components/Pokemon3.jsx'
+import Pokemon4 from './src/components/Pokemon4.jsx'
+import Pokemon5 from './src/components/Pokemon5.jsx'
+import Pokemon6 from './src/components/Pokemon6.jsx'
+import Pokemon7 from './src/components/Pokemon7.jsx'
+import Pokemon8 from './src/components/Pokemon8.jsx'
+import Pokemon9 from './src/components/Pokemon9.jsx'
+import Pokemon10 from './src/components/Pokemon10.jsx'
+import Pokemon11 from './src/components/Pokemon11.jsx'
+import Pokemon12 from './src/components/Pokemon11.jsx'
+import Cool from './src/components/Cool.jsx'
 
-export const theme = vsDark;
+export const theme = github;
 
-# Hello 👋
+# Rxjs Practice 👋
 
-You are using [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us)
-
----
-
-<CodeSurfer>
-
-```js title="This is a title" subtitle="and this a subtitle"
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```js
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function adipiscing(...elit) {
-  if (!elit.sit) {
-    return [];
-  }
-
-  const sed = elit[0];
-  return eiusmod.tempor(sed) ? sed : [sed];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```diff 1[10:14],2[15:19],3[22:27],10:12
-
-```
-
-</CodeSurfer>
+Pokemon
 
 ---
 
-<CodeSurferColumns themes={[vsDark, github]}>
+<CodeSurferColumns themes={[vsDark, github, nightOwl]} sizes={[2,1,2]}>
 
 <Step>
 
-```js
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+```jsx showNumbers title='Create rawPokemon$' subtitle='Store'
+import {BehaviorSubject} from 'rxjs'
+
+export const rawPokemon$ = new BehaviorSubject<Pokemon[]>([]);
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+<div style={{fontSize: '20px'}}>hello rawPokemon$</div>
+
+```jsx showNumbers title='Subscribe to data' subtitle='App component'
+import React, { useEffect } from 'react';
+import { rawPokemon$ } from '../store';
+
+function App () {
+
+    return <div>hello rawPokemon$</div>;
+}
 ```
 
 </Step>
 
 <Step>
 
-```js
-const lorem = (ipsum, dolor, sit) => {
-  const amet = dolor - ipsum;
-  return consectetur.adipiscing(
-    {
-      elit: sed.eiusmod(sit - dolor) / amet + 2,
-    },
-    (tempor, incididunt) => ipsum + amet * incididunt
-  );
-};
+```jsx showNumbers title='Provide data' subtitle='Store'
+import {BehaviorSubject} from 'rxjs'
 
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+export const rawPokemon$ = new BehaviorSubject<Pokemon[]>([]);
+
+fetch('/pokemon-simplified.json')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+<Pokemon1 />
 
-const sed = (eiusmod, tempor, incididunt) => {
-  const ut = tempor - eiusmod;
-  return labore.et(
-    {
-      amet: dolore.magna(incididunt - tempor) / ut + 2,
-    },
-    (aliqua, elit) => eiusmod + ut * elit
+```jsx showNumbers title='Getting the data' subtitle='App component'
+import React, { useEffect } from 'react';
+import { rawPokemon$ } from '../store';
+
+function App () {
+    useEffect(() => {
+        const sub = rawPokemon$.subscribe(console.log);
+        return () => sub.unsubscribe();
+    }, []);
+
+    return <div>hello rawPokemon$</div>;
+}
+```
+
+</Step>
+
+<Step>
+
+```jsx showNumbers subtitle='Store'
+import {BehaviorSubject} from 'rxjs'
+
+export const rawPokemon$ = new BehaviorSubject<Pokemon[]>([]);
+
+fetch('/pokemon-simplified.json')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon1 />
+
+```jsx showNumbers subtitle='App component'
+import React, { useEffect } from 'react';
+import { rawPokemon$ } from '../store';
+
+function App () {
+    useEffect(() => {
+        const sub = rawPokemon$.subscribe(console.log);
+        return () => sub.unsubscribe();
+    }, []);
+
+    return <div>hello rawPokemon$</div>;
+}
+```
+
+</Step>
+
+<Step>
+
+```jsx 1:18 showNumbers title='Create pokemonWithPower$ with pipe' subtitle='Store'
+import { BehaviorSubject, map } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
   );
-};
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon2 />
+
+```jsx showNumbers title='Use pokemonWithPower$ instead' subtitle='App component'
+import React, { useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+function App () {
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(console.log);
+        return () => sub.unsubscribe();
+    }, []);
+
+    return <div>hello pokemonWithPower$</div>;
+}
+```
+
+</Step>
+
+<Step>
+
+```jsx showNumbers subtitle='Store'
+import { BehaviorSubject, map } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon2 />
+
+```jsx showNumbers subtitle='App component'
+import React, { useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+function App () {
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(console.log);
+        return () => sub.unsubscribe();
+    }, []);
+
+    return <div>hello pokemonWithPower$</div>;
+}
 ```
 
 </Step>
@@ -148,5 +210,2100 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:  
-[codesurfer.pomb.us](https://codesurfer.pomb.us)
+<CodeSurferColumns themes={[github, nightOwl]} sizes={[1,1]}>
+
+<Step>
+
+<Pokemon2 />
+
+```jsx showNumbers title='Creating the search UI' subtitle='App component'
+import React, { useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+function App () {
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(console.log);
+        return () => sub.unsubscribe();
+    }, []);
+
+    return <div>hello pokemonWithPower$</div>;
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon2 />
+
+```jsx showNumbers title='Creating the search module' subtitle='App component'
+import React, { useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+        </div>
+    );
+}
+
+function App () {
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(console.log);
+        return () => sub.unsubscribe();
+    }, []);
+
+    return <div>hello pokemonWithPower$</div>;
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon3 />
+
+```jsx showNumbers title='Apply the search module' subtitle='App component'
+import React, { useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+        </div>
+    );
+}
+
+function App () {
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(console.log);
+        return () => sub.unsubscribe();
+    }, []);
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon4 />
+
+```jsx showNumbers title='Modify the search module' subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon5 />
+
+```jsx  showNumbers title='Modify the search module' subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]} sizes={[2,2]}>
+
+<Step>
+
+```jsx showNumbers title='Support selection' subtitle='Store'
+import { BehaviorSubject, map } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon5 />
+
+</Step>
+
+<Step>
+
+```jsx showNumbers subtitle='Store'
+import { BehaviorSubject, map } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon5 />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[github, nightOwl]} sizes={[1,1]}>
+
+<Step>
+
+<Pokemon5 />
+
+```jsx showNumbers subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { pokemonWithPower$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon6 />
+
+```jsx showNumbers subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { pokemonWithPower$, selected$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={selected$.value.includes(p.id)}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon6 />
+
+```jsx 2,27:37 showNumbers title='Opps... selected$ actually changed' subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { pokemonWithPower$, selected$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={selected$.value.includes(p.id)}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon6 />
+
+```jsx 6,8:11 showNumbers title='fix: could connect selected$ with state?' subtitle='fix: alter pokemon to add selected value'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { pokemonWithPower$, selected$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={selected$.value.includes(p.id)}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]} sizes={[2,2]}>
+
+<Step>
+
+```jsx showNumbers subtitle='Store'
+import { BehaviorSubject, map } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon6 />
+
+</Step>
+
+<Step>
+
+```jsx showNumbers title='Create pokemon$ with selected' subtitle='Store'
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+export const pokemon$ = pokemonWithPower$.pipe(
+  combineLatestWith(selected$),
+  map(([pokemon, selected]) =>
+    pokemon.map((p) => ({
+      ...p,
+      selected: selected.includes(p.id),
+    }))
+  )
+);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon6 />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[github, nightOwl]} sizes={[1,1]}>
+
+<Step>
+
+<Pokemon6 />
+
+```jsx showNumbers subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { pokemonWithPower$, selected$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemonWithPower$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={selected$.value.includes(p.id)}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon7 />
+
+```jsx showNumbers title='use pokemon$ instead' subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { selected$, pokemon$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemon$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]} sizes={[2,2]}>
+
+<Step>
+
+```jsx showNumbers title='create a deck' subtitle='Store'
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+export const pokemon$ = pokemonWithPower$.pipe(
+  combineLatestWith(selected$),
+  map(([pokemon, selected]) =>
+    pokemon.map((p) => ({
+      ...p,
+      selected: selected.includes(p.id),
+    }))
+  )
+);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon7 />
+
+</Step>
+
+<Step>
+
+```jsx showNumbers title='Create a deck$' subtitle='Store'
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+export const pokemon$ = pokemonWithPower$.pipe(
+  combineLatestWith(selected$),
+  map(([pokemon, selected]) =>
+    pokemon.map((p) => ({
+      ...p,
+      selected: selected.includes(p.id),
+    }))
+  )
+);
+
+export const deck$ = pokemon$.pipe(
+  map((pokemon) => pokemon.filter((p) => p.selected))
+);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon7 />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[github, nightOwl]} sizes={[1,1]}>
+
+<Step>
+
+<Pokemon7 />
+
+```jsx showNumbers subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { selected$, pokemon$ } from '../store';
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemon$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          hello pokemonWithPower$
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon8 />
+
+```jsx 2,4:6,20  showNumbers title='Bring in deck$ and create deck module' subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { selected$, pokemon$, deck$ } from '../store';
+
+const Deck = () => {
+    return <h4>Deck</h4>
+}
+
+const Search = () => {
+    ...
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          <Deck />
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon8 />
+
+```jsx 4:6,10,12:15  showNumbers title='could use useState and useEffect to manage deck state?' subtitle='or use Observable Hooks easily'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { selected$, pokemon$, deck$ } from '../store';
+
+const Deck = () => {
+    return <h4>Deck</h4>
+}
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemon$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          <Deck />
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon9 />
+
+```jsx  showNumbers title='use useObservableState hooks' subtitle='App component'
+import React, { usestate, useMemo, useEffect } from 'react';
+import { selected$, pokemon$, deck$ } from '../store';
+import { useObservableState } from "observable-hooks";
+
+const Deck = () => {
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+        const sub = pokemon$.subscribe(setPokemon);
+        return () => sub.unsubscribe();
+    }, []);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          <Deck />
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon9 />
+
+```jsx  showNumbers title='use useObservableState again and remove useEffect' subtitle='App component'
+import React, { usestate, useMemo } from 'react';
+import { selected$, pokemon$, deck$ } from '../store';
+import { useObservableState } from "observable-hooks";
+
+const Deck = () => {
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          <Deck />
+      </div>
+    );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]} sizes={[2,2]}>
+
+<Step>
+
+```jsx showNumbers title='Using Context' subtitle='Store'
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+export const pokemon$ = pokemonWithPower$.pipe(
+  combineLatestWith(selected$),
+  map(([pokemon, selected]) =>
+    pokemon.map((p) => ({
+      ...p,
+      selected: selected.includes(p.id),
+    }))
+  )
+);
+
+export const deck$ = pokemon$.pipe(
+  map((pokemon) => pokemon.filter((p) => p.selected))
+);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon9 />
+
+</Step>
+
+<Step>
+
+```jsx showNumbers title='Create context' subtitle='Store'
+import { createContext } from 'react';
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+export const pokemon$ = pokemonWithPower$.pipe(
+  combineLatestWith(selected$),
+  map(([pokemon, selected]) =>
+    pokemon.map((p) => ({
+      ...p,
+      selected: selected.includes(p.id),
+    }))
+  )
+);
+
+export const deck$ = pokemon$.pipe(
+  map((pokemon) => pokemon.filter((p) => p.selected))
+);
+
+const PokemonContext = createContext({
+  pokemon$,
+  selected$,
+  deck$,
+});
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon9 />
+
+</Step>
+
+<Step>
+
+```jsx showNumbers title='Create provider' subtitle='Store'
+import { createContext } from 'react';
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+export const pokemonWithPower$ = rawPokemon$.pipe(
+    map((pokemon) =>
+      pokemon.map((p) => ({
+        ...p,
+        power:
+          p.hp +
+          p.attack +
+          p.defense +
+          p.special_attack +
+          p.special_defense +
+          p.speed,
+      }))
+    )
+  );
+
+export const selected$ = new BehaviorSubject<number[]>([]);
+
+export const pokemon$ = pokemonWithPower$.pipe(
+  combineLatestWith(selected$),
+  map(([pokemon, selected]) =>
+    pokemon.map((p) => ({
+      ...p,
+      selected: selected.includes(p.id),
+    }))
+  )
+);
+
+export const deck$ = pokemon$.pipe(
+  map((pokemon) => pokemon.filter((p) => p.selected))
+);
+
+const PokemonContext = createContext({
+  pokemon$,
+  selected$,
+  deck$,
+});
+
+export const PokemonProvider: React.FunctionComponent = ({ children }) => (
+  <PokemonContext.Provider
+    value={{
+      pokemon$,
+      selected$,
+      deck$,
+    }}
+  >
+    {children}
+  </PokemonContext.Provider>
+);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon9 />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[github, nightOwl]} sizes={[1,1]}>
+
+<Step>
+
+<Pokemon9 />
+
+```jsx  showNumbers subtitle='App component'
+import React, { usestate, useMemo } from 'react';
+import { selected$, pokemon$, deck$ } from '../store';
+import { useObservableState } from "observable-hooks";
+
+const Deck = () => {
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+      }}>
+          <Search />
+          <Deck />
+      </div>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon10 />
+
+```jsx 2,10:18 showNumbers title='Use PokemonProvider' subtitle='App component'
+import React, { usestate, useMemo } from 'react';
+import { selected$, pokemon$, deck$, PokemonProvider } from '../store';
+import { useObservableState } from "observable-hooks";
+
+...
+
+function App () {
+      
+    return (
+      <PokemonProvider>
+          <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+          }}>
+              <Search />
+              <Deck />
+          </div>
+      </PokemonProvider>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon10 />
+
+```jsx 2,6,30 showNumbers title='No need for importing individually' subtitle='App component'
+import React, { usestate, useMemo } from 'react';
+import { selected$, pokemon$, deck$, PokemonProvider } from '../store';
+import { useObservableState } from "observable-hooks";
+
+const Deck = () => {
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <PokemonProvider>
+          <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+          }}>
+              <Search />
+              <Deck />
+          </div>
+      </PokemonProvider>
+    );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]} sizes={[2,2]}>
+
+<Step>
+
+```jsx 1,14 showNumbers title='Create customer hooks' subtitle='Store'
+import { createContext, useContext } from 'react';
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
+
+const rawPokemon$ = new BehaviorSubject([]);
+
+...
+
+const PokemonContext = createContext({
+  pokemon$,
+  selected$,
+  deck$,
+});
+
+export const usePokemon = () => useContext(PokemonContext);
+
+export const PokemonProvider: React.FunctionComponent = ({ children }) => (
+  <PokemonContext.Provider
+    value={{
+      pokemon$,
+      selected$,
+      deck$,
+    }}
+  >
+    {children}
+  </PokemonContext.Provider>
+);
+
+fetch('http://localhost:3005/pokemon')
+  .then((res) => res.json())
+  .then((data) => rawPokemon$.next(data));
+```
+
+<Pokemon10 />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[github, nightOwl]} sizes={[1,1]}>
+
+<Step>
+
+<Pokemon11 />
+
+```jsx 2,6,31 showNumbers title='use usePokemon hooks' subtitle='App component'
+import React, { usestate, useMemo } from 'react';
+import { PokemonProvider } from '../store';
+import { useObservableState } from "observable-hooks";
+
+const Deck = () => {
+    const { deck$ } = usePokemon();
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const { pokemon$, selected$ } = usePokemon();
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <PokemonProvider>
+          <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+          }}>
+              <Search />
+              <Deck />
+          </div>
+      </PokemonProvider>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon11 />
+
+```jsx 30 showNumbers title='Using Rxjs for all the state' subtitle='App component'
+import React, { usestate, useMemo } from 'react';
+import { PokemonProvider } from '../store';
+import { useObservableState } from "observable-hooks";
+
+const Deck = () => {
+    const { deck$ } = usePokemon();
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const [search, setSearch] = useState<string>('');
+    const { pokemon$, selected$ } = usePokemon();
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <PokemonProvider>
+          <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+          }}>
+              <Search />
+              <Deck />
+          </div>
+      </PokemonProvider>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon11 />
+
+```jsx showNumbers title='Use search$ instead' subtitle='App component'
+import React, { useMemo } from 'react';
+import { PokemonProvider } from '../store';
+import { useObservableState } from "observable-hooks";
+import { BehaviorSubject } from 'rxjs';
+
+const Deck = () => {
+    const { deck$ } = usePokemon();
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const search$ = useMemo(() => new BehaviorSubject(), []);
+    const { pokemon$, selected$ } = usePokemon();
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => search$.next(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <PokemonProvider>
+          <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+          }}>
+              <Search />
+              <Deck />
+          </div>
+      </PokemonProvider>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon11 />
+
+```jsx 35:37 showNumbers title='Modify filteredPokemon' subtitle='App component'
+import React, { useMemo } from 'react';
+import { PokemonProvider } from '../store';
+import { useObservableState } from "observable-hooks";
+import { BehaviorSubject } from 'rxjs';
+
+const Deck = () => {
+    const { deck$ } = usePokemon();
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const search$ = useMemo(() => new BehaviorSubject(), []);
+    const { pokemon$, selected$ } = usePokemon();
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const filteredPokemon = useMemo(() => {
+        return pokemon.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }, [pokemon, search]);
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => search$.next(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <PokemonProvider>
+          <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+          }}>
+              <Search />
+              <Deck />
+          </div>
+      </PokemonProvider>
+    );
+}
+```
+
+</Step>
+
+<Step>
+
+<Pokemon12 />
+
+```jsx showNumbers title='Modify filteredPokemon' subtitle='App component'
+import React, { useMemo } from 'react';
+import { PokemonProvider } from '../store';
+import { useObservableState } from "observable-hooks";
+import { BehaviorSubject } from 'rxjs';
+
+const Deck = () => {
+    const { deck$ } = usePokemon();
+    const deck = useObservableState(deck$, []);
+
+    return (
+        <div>
+          <h4>Deck</h4>
+          <div>
+              {deck.map((p) => (
+                <div key={p.id} style={{ display: "flex" }}>
+                    <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}
+                    alt={p.name}
+                    />
+                    <div>
+                    <div>{p.name}</div>
+                    </div>
+                </div>
+              ))}
+          </div>
+        </div>
+    );
+}
+
+const Search = () => {
+    const search$ = useMemo(() => new BehaviorSubject(), []);
+    const { pokemon$, selected$ } = usePokemon();
+    const pokemon = useObservableState(pokemon$,[]);
+
+    const [filteredPokemon] = useObservableState(
+      () =>
+        pokemon$.pipe(
+          combineLatestWith(search$),
+          map(([pokemon, search]) =>
+            pokemon.filter((p) =>
+              p.name.toLowerCase().includes(search.toLowerCase())
+            )
+          )
+        ),
+      []
+    );
+  
+    return (
+        <div>
+            <input
+                style={{fontSize: 'xx-large', width: '100%'}}
+                type='text'
+                value={search}
+                onChange={(e) => search$.next(e.target.value)}
+            />
+            {filteredPokemon.map((p) => (
+                <div key={p.name}>
+                    <input
+                      type="checkbox"
+                      checked={p.selected$}
+                      onChange={() => {
+                          if (selected$.value.includes(p.id)) {
+                          selected$.next(selected$.value.filter((id) => id !== p.id));
+                          } else {
+                          selected$.next([...selected$.value, p.id]);
+                          }
+                      }}
+                    />
+                    <strong>{p.name}</strong> - {p.power}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function App () {
+      
+    return (
+      <PokemonProvider>
+          <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+          }}>
+              <Search />
+              <Deck />
+          </div>
+      </PokemonProvider>
+    );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[nightOwl, github]} sizes={[1,1]}>
+
+<Step>
+
+<Pokemon11 />
+
+<Cool />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurfer>
+
+```jsx 1:2 showNumbers
+console.log(1);
+console.log(2);
+console.log(3);
+```
+
+</CodeSurfer>
+
+---
