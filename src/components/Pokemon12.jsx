@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import { PokemonProvider, usePokemon } from '../store/store12.jsx'
 import { useObservableState } from "observable-hooks";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
 
 const Deck = () => {
     const { deck$ } = usePokemon();
@@ -28,7 +28,7 @@ const Deck = () => {
 }
 
 const Search = () => {
-    const search$ = useMemo(() => new BehaviorSubject(), []);
+    const search$ = useMemo(() => new BehaviorSubject(''), []);
     const { pokemon$, selected$ } = usePokemon();
     const pokemon = useObservableState(pokemon$,[]);
 
@@ -50,7 +50,7 @@ const Search = () => {
             <input
                 style={{fontSize: 'xx-large', width: '100%'}}
                 type='text'
-                value={search}
+                value={search$.value}
                 onChange={(e) => search$.next(e.target.value)}
             />
             <div>
@@ -58,7 +58,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));

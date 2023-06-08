@@ -21,7 +21,7 @@ import Pokemon8 from './src/components/Pokemon8.jsx'
 import Pokemon9 from './src/components/Pokemon9.jsx'
 import Pokemon10 from './src/components/Pokemon10.jsx'
 import Pokemon11 from './src/components/Pokemon11.jsx'
-import Pokemon12 from './src/components/Pokemon11.jsx'
+import Pokemon12 from './src/components/Pokemon12.jsx'
 import Cool from './src/components/Cool.jsx'
 
 export const theme = github;
@@ -29,6 +29,18 @@ export const theme = github;
 # Rxjs Practice 👋
 
 Pokemon
+
+---
+
+<CodeSurferColumns themes={ github } >
+
+<Step>
+
+<Pokemon12 />
+
+</Step>
+
+</CodeSurferColumns>
 
 ---
 
@@ -924,7 +936,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1091,7 +1103,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1192,7 +1204,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1281,7 +1293,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1365,7 +1377,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1628,7 +1640,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1741,7 +1753,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1880,7 +1892,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -1968,7 +1980,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -2037,7 +2049,7 @@ const Deck = () => {
 }
 
 const Search = () => {
-    const search$ = useMemo(() => new BehaviorSubject(), []);
+    const search$ = useMemo(() => new BehaviorSubject<string>(''), []);
     const { pokemon$, selected$ } = usePokemon();
     const pokemon = useObservableState(pokemon$,[]);
 
@@ -2057,7 +2069,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -2126,7 +2138,7 @@ const Deck = () => {
 }
 
 const Search = () => {
-    const search$ = useMemo(() => new BehaviorSubject(), []);
+    const search$ = useMemo(() => new BehaviorSubject<string>(''), []);
     const { pokemon$, selected$ } = usePokemon();
     const pokemon = useObservableState(pokemon$,[]);
 
@@ -2146,7 +2158,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -2188,7 +2200,7 @@ function App () {
 import React, { useMemo } from 'react';
 import { PokemonProvider } from '../store';
 import { useObservableState } from "observable-hooks";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, combineLatestWith } from 'rxjs';
 
 const Deck = () => {
     const { deck$ } = usePokemon();
@@ -2215,7 +2227,7 @@ const Deck = () => {
 }
 
 const Search = () => {
-    const search$ = useMemo(() => new BehaviorSubject(), []);
+    const search$ = useMemo(() => new BehaviorSubject<string>(''), []);
     const { pokemon$, selected$ } = usePokemon();
     const pokemon = useObservableState(pokemon$,[]);
 
@@ -2237,14 +2249,14 @@ const Search = () => {
             <input
                 style={{fontSize: 'xx-large', width: '100%'}}
                 type='text'
-                value={search}
+                value={search$.value}
                 onChange={(e) => search$.next(e.target.value)}
             />
             {filteredPokemon.map((p) => (
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
@@ -2293,17 +2305,5 @@ function App () {
 </Step>
 
 </CodeSurferColumns>
-
----
-
-<CodeSurfer>
-
-```jsx 1:2 showNumbers
-console.log(1);
-console.log(2);
-console.log(3);
-```
-
-</CodeSurfer>
 
 ---
