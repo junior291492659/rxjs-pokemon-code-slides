@@ -57,8 +57,7 @@ export const rawPokemon$ = new BehaviorSubject<Pokemon[]>([]);
 <div style={{fontSize: '20px'}}>hello rawPokemon$</div>
 
 ```jsx showNumbers title='Subscribe to data' subtitle='App component'
-import React, { useEffect } from 'react';
-import { rawPokemon$ } from '../store';
+import React from 'react';
 
 function App () {
 
@@ -1844,7 +1843,7 @@ fetch('http://localhost:3005/pokemon')
 
 ```jsx 2,6,31 showNumbers title='use usePokemon hooks' subtitle='App component'
 import React, { usestate, useMemo } from 'react';
-import { PokemonProvider } from '../store';
+import { PokemonProvider, usePokemon } from '../store';
 import { useObservableState } from "observable-hooks";
 
 const Deck = () => {
@@ -2062,7 +2061,7 @@ const Search = () => {
             <input
                 style={{fontSize: 'xx-large', width: '100%'}}
                 type='text'
-                value={search}
+                value={search$.value}
                 onChange={(e) => search$.next(e.target.value)}
             />
             {filteredPokemon.map((p) => (
@@ -2151,7 +2150,7 @@ const Search = () => {
             <input
                 style={{fontSize: 'xx-large', width: '100%'}}
                 type='text'
-                value={search}
+                value={search$.value}
                 onChange={(e) => search$.next(e.target.value)}
             />
             {filteredPokemon.map((p) => (

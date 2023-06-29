@@ -27,7 +27,7 @@ const Search = () => {
                 <div key={p.name}>
                     <input
                       type="checkbox"
-                      checked={p.selected$}
+                      checked={p.selected}
                       onChange={() => {
                           if (selected$.value.includes(p.id)) {
                           selected$.next(selected$.value.filter((id) => id !== p.id));
